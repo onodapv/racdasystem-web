@@ -45,3 +45,9 @@ build/
 *.temp
 .cache/
 
+# 開発・デプロイ用スクリプト（マシン固有のパスや認証情報を含む）
+deploy.ps1
+push-to-github.bat
+*.local.ps1
+*.local.bat
+
