@@ -12,6 +12,7 @@
   --radius-xl: 26px;
   --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.85);
   --shadow-glow: 0 0 40px rgba(48, 232, 255, 0.4);
+  --spacing-md: 18px;
 }
 
 *,
@@ -311,79 +312,159 @@ body {
   animation: float 9s ease-in-out infinite reverse;
 }
 
-.hero-card {
+/* ネオサイバー3Dビジュアル要素 */
+.cyber-grid {
   position: absolute;
-  inset: auto;
-  border-radius: var(--radius-xl);
-  background: radial-gradient(
-      circle at 0 0,
-      rgba(241, 204, 133, 0.18),
-      transparent 55%
-    ),
-    linear-gradient(
-      135deg,
-      rgba(39, 27, 16, 0.98),
-      rgba(39, 27, 16, 0.94),
-      rgba(115, 76, 32, 0.95)
-    );
-  box-shadow: var(--shadow-soft);
-  border: 1px solid rgba(188, 150, 92, 0.7);
-  padding: 16px 18px;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(241, 204, 133, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(241, 204, 133, 0.1) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.4;
+  animation: gridPulse 4s ease-in-out infinite;
+  transform: perspective(1000px) rotateX(60deg);
+  transform-origin: center center;
+}
+
+.cyber-cube {
+  position: absolute;
+  width: 80px;
+  height: 80px;
   transform-style: preserve-3d;
   will-change: transform;
 }
 
-.hero-card-main {
-  right: 0;
-  top: 40px;
-  width: min(310px, 100%);
-  transform: rotateY(-12deg) rotateX(10deg);
+.cyber-cube::before,
+.cyber-cube::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 2px solid rgba(241, 204, 133, 0.6);
+  background: linear-gradient(
+    135deg,
+    rgba(241, 204, 133, 0.15),
+    rgba(192, 118, 59, 0.1)
+  );
+  box-shadow: 
+    0 0 20px rgba(241, 204, 133, 0.4),
+    inset 0 0 20px rgba(241, 204, 133, 0.1);
 }
 
-.hero-card-secondary {
-  left: -6px;
-  bottom: 12px;
-  width: min(240px, 80%);
-  transform: rotateY(14deg) rotateX(-10deg);
-  background: radial-gradient(
-      circle at 100% 0,
-      rgba(241, 204, 133, 0.16),
-      transparent 60%
-    ),
-    linear-gradient(
-      135deg,
-      rgba(39, 27, 16, 0.98),
-      rgba(115, 76, 32, 0.96)
-    );
+.cyber-cube::before {
+  transform: rotateY(0deg) translateZ(40px);
 }
 
-.hero-card-label {
-  font-size: 11px;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: rgba(148, 163, 184, 0.9);
-  margin-bottom: 8px;
+.cyber-cube::after {
+  transform: rotateY(90deg) translateZ(40px);
 }
 
-.hero-card-main h2 {
-  font-size: 19px;
-  margin: 0 0 6px;
+.cyber-cube-1 {
+  right: 20%;
+  top: 20%;
+  animation: cubeRotate1 8s linear infinite;
 }
 
-.hero-card-main p {
-  font-size: 13px;
-  color: var(--text-muted);
-  margin: 0;
-  line-height: 1.6;
+.cyber-cube-2 {
+  right: 10%;
+  bottom: 30%;
+  animation: cubeRotate2 10s linear infinite reverse;
 }
 
-.hero-card-secondary ul {
-  margin: 0;
-  padding-left: 16px;
-  font-size: 12px;
-  color: var(--text-muted);
-  display: grid;
-  gap: 3px;
+.cyber-cube-3 {
+  left: 15%;
+  top: 50%;
+  width: 60px;
+  height: 60px;
+  animation: cubeRotate3 12s linear infinite;
+}
+
+.cyber-ring {
+  position: absolute;
+  border: 2px solid rgba(241, 204, 133, 0.5);
+  border-radius: 50%;
+  box-shadow: 
+    0 0 30px rgba(241, 204, 133, 0.3),
+    inset 0 0 30px rgba(241, 204, 133, 0.1);
+}
+
+.cyber-ring::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 1px solid rgba(241, 204, 133, 0.3);
+  border-radius: 50%;
+  animation: ringPulse 3s ease-in-out infinite;
+}
+
+.cyber-ring-1 {
+  width: 120px;
+  height: 120px;
+  right: 15%;
+  top: 30%;
+  transform: rotateX(70deg) rotateZ(45deg);
+  animation: ringRotate1 15s linear infinite;
+}
+
+.cyber-ring-2 {
+  width: 90px;
+  height: 90px;
+  left: 20%;
+  bottom: 25%;
+  transform: rotateX(60deg) rotateZ(-30deg);
+  animation: ringRotate2 12s linear infinite reverse;
+}
+
+.cyber-lines {
+  position: absolute;
+  inset: 0;
+  background: 
+    linear-gradient(90deg, transparent 0%, rgba(241, 204, 133, 0.3) 50%, transparent 100%),
+    linear-gradient(0deg, transparent 0%, rgba(241, 204, 133, 0.2) 50%, transparent 100%);
+  background-size: 200% 200%;
+  opacity: 0.5;
+  animation: linesMove 6s linear infinite;
+  mix-blend-mode: screen;
+}
+
+@keyframes gridPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes cubeRotate1 {
+  0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateZ(0); }
+  100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(0deg) translateZ(20px); }
+}
+
+@keyframes cubeRotate2 {
+  0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateZ(0); }
+  100% { transform: rotateX(0deg) rotateY(360deg) rotateZ(360deg) translateZ(-15px); }
+}
+
+@keyframes cubeRotate3 {
+  0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateZ(0); }
+  100% { transform: rotateX(360deg) rotateY(0deg) rotateZ(360deg) translateZ(10px); }
+}
+
+@keyframes ringRotate1 {
+  0% { transform: rotateX(70deg) rotateZ(45deg) rotateY(0deg); }
+  100% { transform: rotateX(70deg) rotateZ(45deg) rotateY(360deg); }
+}
+
+@keyframes ringRotate2 {
+  0% { transform: rotateX(60deg) rotateZ(-30deg) rotateY(0deg); }
+  100% { transform: rotateX(60deg) rotateZ(-30deg) rotateY(-360deg); }
+}
+
+@keyframes ringPulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+@keyframes linesMove {
+  0% { background-position: 0% 0%, 0% 0%; }
+  100% { background-position: 200% 200%, 200% 200%; }
 }
 
 .section {
@@ -528,13 +609,69 @@ dd {
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 18px;
 }
 
 .service-card {
   position: relative;
   overflow: hidden;
+}
+
+/* 最初の4つのサービスカードを3倍のサイズに */
+.service-card:nth-child(1),
+.service-card:nth-child(2),
+.service-card:nth-child(3),
+.service-card:nth-child(4) {
+  grid-column: span 3;
+  grid-row: span 1;
+  transform: scale(1);
+  padding: calc(var(--spacing-md) * 3);
+  min-height: auto;
+}
+
+.service-card:nth-child(1) .service-tag,
+.service-card:nth-child(2) .service-tag,
+.service-card:nth-child(3) .service-tag,
+.service-card:nth-child(4) .service-tag {
+  font-size: calc(12px * 3);
+  padding: calc(3px * 3) calc(10px * 3);
+  margin-bottom: calc(8px * 3);
+}
+
+.service-card:nth-child(1) h3,
+.service-card:nth-child(2) h3,
+.service-card:nth-child(3) h3,
+.service-card:nth-child(4) h3 {
+  font-size: calc(17px * 3);
+  margin: 0 0 calc(8px * 3);
+}
+
+.service-card:nth-child(1) .service-lead,
+.service-card:nth-child(2) .service-lead,
+.service-card:nth-child(3) .service-lead,
+.service-card:nth-child(4) .service-lead {
+  font-size: calc(14px * 3);
+  margin: 0 0 calc(10px * 3);
+  line-height: calc(1.6 * 3);
+}
+
+.service-card:nth-child(1) .service-points,
+.service-card:nth-child(2) .service-points,
+.service-card:nth-child(3) .service-points,
+.service-card:nth-child(4) .service-points {
+  font-size: calc(13px * 3);
+  margin: 0 0 calc(8px * 3);
+  padding-left: calc(16px * 3);
+  gap: calc(4px * 3);
+  line-height: calc(1.5 * 3);
+}
+
+.service-card:nth-child(1) .service-note,
+.service-card:nth-child(2) .service-note,
+.service-card:nth-child(3) .service-note,
+.service-card:nth-child(4) .service-note {
+  font-size: calc(12px * 3);
 }
 
 .service-card::before {
@@ -597,6 +734,51 @@ dd {
 
 .service-card-wide {
   grid-column: 1 / -1;
+}
+
+/* 最初の4つのカードのフォントサイズを3倍に */
+.service-card:nth-child(1) .service-tag,
+.service-card:nth-child(2) .service-tag,
+.service-card:nth-child(3) .service-tag,
+.service-card:nth-child(4) .service-tag {
+  font-size: calc(12px * 3);
+  padding: calc(3px * 3) calc(10px * 3);
+  margin-bottom: calc(8px * 3);
+}
+
+.service-card:nth-child(1) h3,
+.service-card:nth-child(2) h3,
+.service-card:nth-child(3) h3,
+.service-card:nth-child(4) h3 {
+  font-size: calc(17px * 3);
+  margin: 0 0 calc(8px * 3);
+}
+
+.service-card:nth-child(1) .service-lead,
+.service-card:nth-child(2) .service-lead,
+.service-card:nth-child(3) .service-lead,
+.service-card:nth-child(4) .service-lead {
+  font-size: calc(14px * 3);
+  margin: 0 0 calc(10px * 3);
+  line-height: calc(1.6 * 3);
+}
+
+.service-card:nth-child(1) .service-points,
+.service-card:nth-child(2) .service-points,
+.service-card:nth-child(3) .service-points,
+.service-card:nth-child(4) .service-points {
+  font-size: calc(13px * 3);
+  margin: 0 0 calc(8px * 3);
+  padding-left: calc(16px * 3);
+  gap: calc(4px * 3);
+  line-height: calc(1.5 * 3);
+}
+
+.service-card:nth-child(1) .service-note,
+.service-card:nth-child(2) .service-note,
+.service-card:nth-child(3) .service-note,
+.service-card:nth-child(4) .service-note {
+  font-size: calc(12px * 3);
 }
 
 .works-grid {
@@ -812,6 +994,59 @@ dd {
   .services-grid {
     grid-template-columns: minmax(0, 1fr);
   }
+
+  /* モバイルでは最初の4つのカードも通常サイズに */
+  .service-card:nth-child(1),
+  .service-card:nth-child(2),
+  .service-card:nth-child(3),
+  .service-card:nth-child(4) {
+    grid-column: span 1;
+    padding: var(--spacing-md);
+  }
+
+  .service-card:nth-child(1) .service-tag,
+  .service-card:nth-child(2) .service-tag,
+  .service-card:nth-child(3) .service-tag,
+  .service-card:nth-child(4) .service-tag {
+    font-size: 12px;
+    padding: 3px 10px;
+    margin-bottom: 8px;
+  }
+
+  .service-card:nth-child(1) h3,
+  .service-card:nth-child(2) h3,
+  .service-card:nth-child(3) h3,
+  .service-card:nth-child(4) h3 {
+    font-size: 17px;
+    margin: 0 0 8px;
+  }
+
+  .service-card:nth-child(1) .service-lead,
+  .service-card:nth-child(2) .service-lead,
+  .service-card:nth-child(3) .service-lead,
+  .service-card:nth-child(4) .service-lead {
+    font-size: 14px;
+    margin: 0 0 10px;
+    line-height: 1.6;
+  }
+
+  .service-card:nth-child(1) .service-points,
+  .service-card:nth-child(2) .service-points,
+  .service-card:nth-child(3) .service-points,
+  .service-card:nth-child(4) .service-points {
+    font-size: 13px;
+    margin: 0 0 8px;
+    padding-left: 16px;
+    gap: 4px;
+    line-height: 1.5;
+  }
+
+  .service-card:nth-child(1) .service-note,
+  .service-card:nth-child(2) .service-note,
+  .service-card:nth-child(3) .service-note,
+  .service-card:nth-child(4) .service-note {
+    font-size: 12px;
+  }
 }
 
 @media (max-width: 520px) {
@@ -824,14 +1059,24 @@ dd {
     align-items: stretch;
   }
 
-  .hero-card-main {
-    right: 0;
-    left: 0;
-    margin: 0 auto;
+  .cyber-cube {
+    width: 50px;
+    height: 50px;
   }
 
-  .hero-card-secondary {
-    left: 0;
+  .cyber-cube-3 {
+    width: 35px;
+    height: 35px;
+  }
+
+  .cyber-ring-1 {
+    width: 80px;
+    height: 80px;
+  }
+
+  .cyber-ring-2 {
+    width: 60px;
+    height: 60px;
   }
 
   .footer-inner {
